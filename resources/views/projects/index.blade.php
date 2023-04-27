@@ -71,20 +71,16 @@
                       @else
                       <td>{{ $project->updated_at->format('d/m/y') }}</td>
                       @endif
-
-
-                      <td>
-                       
+{{-- **************************
+  TECNOLOGIE
+  ************************** --}}
+                      <td>                        
                         @forelse ($project->technologies as $tecnologia )
-                        <span>{{$tecnologia->name}}</span>
-                          
+                        <span class="badge rounded-pill text-bg-dark">{{$tecnologia->name}}</span>                          
                         @empty
                           ---
                         @endforelse
                       </td>
-                      
-                      
-                      
                       
                       <td>
                         <div>
@@ -117,7 +113,7 @@
                   <tr>
 
                     @if(request('trashed'))
-                    <th colspan="8" class="text-uppercase text-center fw-bolder">il cestino è vuoto</th>
+                    <th colspan="9" class="text-uppercase text-center fw-bolder">il cestino è vuoto</th>
                       @else
                       <th colspan="9" class="text-uppercase text-center fw-bolder">Nessun lavoro trovato</th>
                       @endif

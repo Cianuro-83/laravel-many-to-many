@@ -15,8 +15,14 @@
             </div>
             <h1>{{ $project->title }}</h1>
             <p class="fs-6"><span>Slug: </span>{{ $project->slug }}</p>
-            <p class="fs-6"><span>Data di Creazione: </span>{{ $project->created_at }}</p>
-            <p class="fs-6"><span>Ultima modifica: </span>{{ $project->created_at }}</p>
+            <p class="fs-6"><span>Data di Creazione: </span>{{ $project->created_at->format('d/m/y') }}</p>
+            <p class="fs-6"><span>Ultima modifica: </span>{{ $project->created_at->format('d/m/y') }}</p>
+            <span>Tecnologie utilizzate: </span>
+            @forelse ($project->technologies as $tecnologia)            
+            <span class="badge rounded-pill text-bg-success">{{$tecnologia->name}}</span>                          
+            @empty
+              ---
+            @endforelse
         </div>
 
         <div>
