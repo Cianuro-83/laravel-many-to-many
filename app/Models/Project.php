@@ -30,5 +30,9 @@ class Project extends Model
         public function getTechnologyIds(){
             return $this->technologies->pluck('id')->all();
         }
+
+        public function getRelatedProjects(){
+            return $this->type->projects()->where('id', '!=', $this->id)->get();
+        }
     
 }

@@ -41,7 +41,7 @@
     <h4 class="text-uppercase">progetti correlati</h4>
     @if ($project->type)
     <ul>
-        @foreach ($project->type->projects as $related_project )
+        @foreach ($project->getRelatedProjects() as $related_project )
         <li>
             <a href="{{route('projects.show', $related_project)}}">
                 {{$related_project->title}}
