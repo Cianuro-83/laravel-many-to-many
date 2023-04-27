@@ -50,7 +50,7 @@
                   @else
                   <th>Ultima modifica</th>
                   @endif
-                  <th>relazione many to many</th>
+                  <th>Tecnologie utilizzate</th>
                   <th>Azioni</th>
                   
                 </tr>
@@ -73,7 +73,15 @@
                       @endif
 
 
-                      <td>relazione many to many</td>
+                      <td>
+                       
+                        @forelse ($project->technologies as $tecnologia )
+                        <span>{{$tecnologia->name}}</span>
+                          
+                        @empty
+                          ---
+                        @endforelse
+                      </td>
                       
                       
                       
@@ -118,7 +126,5 @@
               </tbody>
             </table>
           </div>
-      
-
     </div>
 @endsection
