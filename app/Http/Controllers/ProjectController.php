@@ -9,6 +9,7 @@ use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Type;
+use App\Models\Technology;
 
 class ProjectController extends Controller
 {
@@ -41,7 +42,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types= Type::orderBy('name', 'asc')->get();
-        return view('projects.create', compact('types'));
+        $technologies= Technology::orderBy('name', 'asc')->get();
+        return view('projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -59,7 +61,10 @@ class ProjectController extends Controller
 
         $new_project=Project::create($data);
         
-        // dd($data);
+        if(isset($data['technologies'])){
+            $new_project->technologies()->attach($data['technologies']);
+        }
+
         if (isset($data['checkbox']))
         return to_route('projects.create');
          else
@@ -87,8 +92,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types= Type::orderBy('name', 'asc')->get();
+        $technologies= Technology::orderBy('name', 'asc')->get();
 
-        return view('projects.edit', compact('project', 'types'));
+        return view('projects.edit', compact('project', 'types','technologies'));
     }
 
     /**
@@ -106,6 +112,14 @@ class ProjectController extends Controller
             $data['slug'] = Str::slug($data['title']);
         }
         $project->update($data);
+
+        if (isset($data['technologies'])) {
+            $project->technologies()->sync($data['technologies']);
+        } else {
+            $project->technologies()->sync([]);
+        }
+
+
 
         return to_route('projects.show', $project);
     }

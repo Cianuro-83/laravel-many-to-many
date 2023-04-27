@@ -30,6 +30,7 @@ class StoreProjectRequest extends FormRequest
             'customer' =>'required|string',
             'checkbox' => 'nullable',
             'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'exists:technologies,id',
         ];
     }
 }

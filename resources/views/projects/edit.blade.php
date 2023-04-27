@@ -20,8 +20,6 @@
                 @enderror
               </div>
             </div>
-
-
             <div class="row mb-3 ">
               <label for="type" class="col-sm-2 col-form-label">TIPOLOGIA</label>
               <div class="col-sm-10">
@@ -38,16 +36,6 @@
               @enderror
             </div>
           </div>
-
-            
-
-
-
-
-
-
-
-
 
             <div class="row mb-3">
                 <label for="customer" class="col-sm-2 col-form-label">CLIENTE</label>
@@ -72,6 +60,27 @@
                 @enderror
                 </div>
               </div>
+
+              {{-- TECNOLOGIE --}}
+              <div class="mb-3 d-flex">
+                <label for="tecnologie" class="form-label">Tecnologie</label>
+                <div class="d-flex ms-5 @error('technologies') is-invalid @enderror flex-wrap gap-3">                  
+                  @foreach($technologies as $technology)
+                    <div class="form-check">
+                      <input name="technologies[]" @checked( in_array($technology->id, old('technologies', $project->getTechnologyIds()))) class="form-check-input" type="checkbox" value="{{ $technology->id }}" id="flexCheckDefault">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        {{ $technology->name }}
+                      </label>
+                    </div>
+                  @endforeach
+                </div>
+                @error('technologies')
+                  <div class="invalid-feedback">
+                      {{ $message }}
+                  </div>
+                @enderror
+              </div>
+ {{-- TEXTAREA --}}
 
               <div class="form-floating mb-3">
                     <textarea class="form-control @error('description') is-invalid @enderror" placeholder="Insert description here" id="description" name="description" style="height: 200px" >{{ old('description', $project->description) }}</textarea>
