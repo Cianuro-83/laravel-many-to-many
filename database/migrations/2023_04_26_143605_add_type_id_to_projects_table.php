@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
                 // 1. aggiungo la colonna della foreingKey
-                $table->unsignedBigInteger('type_id')->nullable()->after('id');
+                $table->unsignedBigInteger('type_id')->nullable()->after('id')->onDelete('CASCADE')->onUpdate('CASCADE');;
 
                 // 2. creo la relazione tra la foreingKey e la PrimaryKey
-                $table->foreign('type_id')->references('id')->on('types');
+                $table->foreign('type_id')->references('id')->on('types')->onDelete('CASCADE')->onUpdate('CASCADE');;
         });
     }
 
@@ -31,10 +31,10 @@ return new class extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
                // 2. droppo la realzione tra le tabelle
-            $table->dropForeign(['category_id']);
+            $table->dropForeign(['type_id']);
 
             // 1. droppo la colonna
-            $table->dropColumn('category_id');
+            $table->dropColumn('type_id');
         });
     }
 };

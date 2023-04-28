@@ -60,6 +60,7 @@ class ProjectController extends Controller
         
 
         $new_project=Project::create($data);
+        $request->session()->flash('message', 'Il progetto è stato creato correttamente.');
         
         if(isset($data['technologies'])){
             $new_project->technologies()->attach($data['technologies']);
@@ -89,7 +90,7 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit(Request $request, Project $project)
     {
         $types= Type::orderBy('name', 'asc')->get();
         $technologies= Technology::orderBy('name', 'asc')->get();
@@ -112,6 +113,12 @@ class ProjectController extends Controller
             $data['slug'] = Str::slug($data['title']);
         }
         $project->update($data);
+
+        $request->session()->flash('message', 'Il progetto è stato modificato con successo.');
+    
+
+
+
 
         if (isset($data['technologies'])) {
             $project->technologies()->sync($data['technologies']);
@@ -153,11 +160,13 @@ class ProjectController extends Controller
     }
 
 
-    public function destroyAll()
+    public function destroyAll(Request $request)
     {
-        $projects= Project::onlyTrashed()->truncate();
 
+         $projects= Project::onlyTrashed()->forceDelete();
+         $request->session()->flash('message', 'Il cestino è stato svuotato correttamente.');
+        
 
-        return back();
+         return to_route('projects.index');
     }
 }

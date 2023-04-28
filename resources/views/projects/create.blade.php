@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="container">
+  @if(request()->session()->exists('message'))
+  <div class="alert alert-primary" role="alert">
+    {{ request()->session()->pull('message') }}
+  </div>
+  @endif
+
+</div>
 <div class="container">
     <h1 class="py-3 text-uppercase text-center font-weight-bolder text-warning">aggiungi un nuovo lavoro</h1>
 <div class="row">

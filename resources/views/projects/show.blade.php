@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="container">
+    @if(request()->session()->exists('message'))
+    <div class="alert alert-primary" role="alert">
+      {{ request()->session()->pull('message') }}
+    </div>
+    @endif
+
+</div>
 <div class="container">
     <div class="d-flex align-items-center py-5">
         <div class="me-auto">
